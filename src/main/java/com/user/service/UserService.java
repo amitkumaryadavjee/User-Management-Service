@@ -56,7 +56,7 @@ public class UserService {
         }
     }
 
-    private List<User> processResponse(Object response) {
+    List<User> processResponse(Object response) {
         log.info("Processing api response");
         Gson gson = new Gson();
         List<User> userList = new ArrayList<>();
@@ -153,13 +153,6 @@ public class UserService {
 
             existingUser = objectMapper.updateValue(existingUser, userDto);  // Maps fields from UserDto to existingUser
 
-//            existingUser.setFirstName(userDto.getFirstName());
-//            existingUser.setLastName(userDto.getLastName());
-//            existingUser.setAge(userDto.getAge());
-//            existingUser.setEmail(userDto.getEmail());
-//            existingUser.setPhone(userDto.getPhone());
-//            existingUser.setRole(userDto.getRole());
-
             return userRepository.save(existingUser);
         } catch (Exception e) {
             log.error("Some exception occur while creating user :{}", e.getMessage());
@@ -180,32 +173,6 @@ public class UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> ServiceResponseException.internalServerError().message("User not found with ID: " + id));
     }
-
-
-//    // Map DTO to Entity
-//    private User mapToEntity(UserDto userDto) {
-//        User user = new User();
-//        user.setFirstName(userDto.getFirstName());
-//        user.setLastName(userDto.getLastName());
-//        user.setAge(userDto.getAge());
-//        user.setEmail(userDto.getEmail());
-//        user.setPhone(userDto.getPhone());
-//        user.setRole(userDto.getRole());
-//        return user;
-//    }
-//
-//    // Map Entity to DTO
-//    private UserDto mapToDto(User user) {
-//        UserDto userDto = new UserDto();
-//        userDto.setId(user.getId());
-//        userDto.setFirstName(user.getFirstName());
-//        userDto.setLastName(user.getLastName());
-//        userDto.setAge(user.getAge());
-//        userDto.setEmail(user.getEmail());
-//        userDto.setPhone(user.getPhone());
-//        userDto.setRole(user.getRole());
-//        return userDto;
-//    }
 
 
 }
